@@ -9,8 +9,8 @@ O.Number = {
 	 */
 	toCn: function(num) {
 		if(!/^\d*(\.\d*)?$/.test(num))throw(new Error(-1, "Number is wrong!"));
-		var AA = new Array("零","一","二","三","四","五","六","七","八","九");
-		var BB = new Array("","十","百","千","万","亿","点","");
+		var AA = ["零","一","二","三","四","五","六","七","八","九"];
+		var BB = ["","十","百","千","万","亿","点",""];
 
 		var a = (""+ num).replace(/(^0*)/g, "").split("."),		//将前面的0给去掉, 并分割小数(lz)和整数(z)部分
 			z = a[0], lz = a[1],
@@ -69,8 +69,8 @@ O.Number = {
 		}
 
 		// 去掉一十在前面的时候
-		if (re.indexOf("一十") == 0) {
-			re = re.replace("一", "");
+		if (re.indexOf(AA[1] + BB[1]) == 0) {
+			re = re.replace(AA[1], "");
 		}
 
 		return re;
@@ -81,9 +81,9 @@ O.Number = {
 	 */
 	toCapitalMoney: function(num) {
 		if(!/^\d*(\.\d*)?$/.test(num))throw(new Error(-1, "Number is wrong!"));
-		var AA = new Array("零","壹","贰","叁","肆","伍","陆","柒","捌","玖");
-		var BB = new Array("","拾","佰","仟","萬","億","圆","");
-		var CC = new Array("角", "分", "厘");
+		var AA = ["零","壹","贰","叁","肆","伍","陆","柒","捌","玖"];
+		var BB = ["","拾","佰","仟","萬","億","圆",""];
+		var CC = ["角", "分", "厘"];
 
 		var a = (""+ num).replace(/(^0*)/g, "").split("."),		//将前面的0给去掉, 并分割小数(lz)和整数(z)部分
 			z = a[0], lz = a[1],
@@ -144,6 +144,11 @@ O.Number = {
 		// 整数部分为0的情况下, 前面补"零"
 		if (z == "") {
 			re = (AA[0] + re);
+		}
+
+		// 去掉一十在前面的时候
+		if (re.indexOf(AA[1] + BB[1]) == 0) {
+			re = re.replace(AA[1], "");
 		}
 
 		return re;
